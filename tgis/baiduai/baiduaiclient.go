@@ -365,8 +365,9 @@ func (b *BaiduAiClient) GetImg(ctx context.Context, taskId string) (*GetImgv1Res
 // }
 type GetImgResponse struct {
 	Data struct {
-		TaskStatus        string `json:"task_status"`   //计算总状态。有 INIT（初始化），WAIT（排队中）, RUNNING（生成中）, FAILED（失败）, SUCCESS（成功）四种状态，只有 SUCCESS 为成功状态
-		TaskProgress      int    `json:"task_progress"` //图片生成总进度，进度包含2种，0为未处理完，1为处理完成
+		TaskStatus string `json:"task_status"` //计算总状态。有 INIT（初始化），WAIT（排队中）, RUNNING（生成中）, FAILED（失败）, SUCCESS（成功）四种状态，只有 SUCCESS 为成功状态
+		//TaskProgress      int    `json:"task_progress"` //图片生成总进度，进度包含2种，0为未处理完，1为处理完成；参数值已调整，三方修改为了进度值
+		TaskProgress      interface{} `json:"task_progress"` //图片生成总进度，进度包含2种，0为未处理完，1为处理完成
 		SubTaskResultList []struct {
 			FinalImageList []struct {
 				Width                int    `json:"width"`
@@ -375,8 +376,9 @@ type GetImgResponse struct {
 				Height               int    `json:"height"`
 			} `json:"final_image_list"`
 			SubTaskErrorCode int    `json:"sub_task_error_code"`
-			SubTaskStatus    string `json:"sub_task_status"`   //单风格图片状态。有 INIT（初始化），WAIT（排队中）, RUNNING（生成中）, FAILED（失败）, SUCCESS（成功）四种状态，只有 SUCCESS 为成功状态
-			SubTaskProgress  int    `json:"sub_task_progress"` //单任务图片生成进度，进度包含2种，0为未处理完，1为处理完成
+			SubTaskStatus    string `json:"sub_task_status"` //单风格图片状态。有 INIT（初始化），WAIT（排队中）, RUNNING（生成中）, FAILED（失败）, SUCCESS（成功）四种状态，只有 SUCCESS 为成功状态
+			//SubTaskProgress  int    `json:"sub_task_progress"` //单任务图片生成进度，进度包含2种，0为未处理完，1为处理完成；参数值已调整，三方修改为了进度值
+			SubTaskProgress interface{} `json:"sub_task_progress"` //单任务图片生成进度，进度包含2种，0为未处理完，1为处理完成
 		} `json:"sub_task_result_list"`
 		TaskId int `json:"task_id"`
 	} `json:"data"`
